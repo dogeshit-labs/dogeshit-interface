@@ -1,0 +1,28 @@
+{
+  "tags": {
+    "allowUnkownTags": true,
+    "dictionaries": ["jsdoc", "closure"]
+  },
+  "source": {
+    "include": ["src"],
+    "includePattern": ".+\\.js(doc|x)?$",
+    "excludePattern": "(^|\\/|\\\\)_"
+  },
+  "plugins": ["plugins/markdown", "better-docs/component"],
+  "templates": {
+    "better-docs": {
+      "name": "My React components",
+      "component": {
+        "wrapper": "./src/docWrapper.js"
+      }
+    }
+  },
+  "opts": {
+    "encoding": "utf8",
+    "destination": "docs",
+    "recurse": true,
+    "verbose": true,
+    "readme": "README.md",
+    "template": "./node_modules/better-docs"
+  }
+}

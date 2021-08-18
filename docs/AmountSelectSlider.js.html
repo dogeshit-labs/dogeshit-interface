@@ -1,0 +1,247 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> AmountSelectSlider.js</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+             
+                <a href="index.html">
+                    <h1 class="navbar-item">My React components</h1>
+                </a>
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Components</h3><ul><li><a href="AmountSelectSlider.html">AmountSelectSlider</a></li><li><a href="HelpPopover.html">HelpPopover</a></li><li><a href="Hero.html">Hero</a></li><li><a href="LogoIcon.html">LogoIcon</a></li><li><a href="SupportedDogeList.html">SupportedDogeList</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Bold">Bold</a></li><li><a href="global.html#Container">Container</a></li><li><a href="global.html#Italics">Italics</a></li><li><a href="global.html#Item">Item</a></li><li><a href="global.html#Wide">Wide</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>AmountSelectSlider.js</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { useCallback } from "react";
+import Slider from "@material-ui/core/Slider";
+import Input from "@material-ui/core/Input";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import Button from "@material-ui/core/Button";
+import PropTypes from "prop-types";
+
+import { Container, Item } from "../components/core.js";
+
+/**
+ * Component for selecting an amount. Selection can happen from
+ * either a number input or slider, which are both synced.
+ *
+ * @component
+ * @example
+ * let value = 0;
+ * const setValue = val => value = val;
+ * const sliderUnits = 'units';
+ * const maxAmount = 3500;
+ * return (
+ *  &lt;AmountSelectSlider
+ *    value={value}
+ *    setValue={setValue}
+ *    sliderUnits={sliderUnits}
+ *    maxAmount={maxAmount}
+ *  />
+ * )
+ */
+function AmountSelectSlider(props) {
+  const { maxAmount, sliderUnits, value, setValue } = props;
+
+  const handleMaxRequested = useCallback(() => {
+    setValue(Number(maxAmount));
+  }, [setValue, maxAmount]);
+
+  const handleSliderChanged = useCallback(
+    (event, newValue) => {
+      const sliderVal = (newValue * maxAmount) / 100;
+      setValue(Math.min(sliderVal.toFixed(4), maxAmount));
+    },
+    [setValue, maxAmount]
+  );
+
+  const handleInputChanged = useCallback(
+    (event) => {
+      console.log("InputChanged", event.target.value);
+      setValue(event.target.value === "" ? "" : Number(event.target.value));
+    },
+    [setValue]
+  );
+
+  const handleBlur = useCallback(() => {
+    if (value &lt; 0) {
+      setValue(0);
+    } else if (value > maxAmount) {
+      setValue(maxAmount);
+    }
+  }, [value, setValue, maxAmount]);
+
+  return (
+    &lt;Container spacing={2} alignItems="center">
+      &lt;Item container xs={9} sm={10} justify="flex-end">
+        &lt;Item container xs={12} justify="flex-end">
+          &lt;Input
+            value={value}
+            onChange={handleInputChanged}
+            onBlur={handleBlur}
+            endAdornment={
+              &lt;InputAdornment position="end">{sliderUnits}&lt;/InputAdornment>
+            }
+            inputProps={{
+              min: 0,
+              max: maxAmount,
+              step: maxAmount / 20,
+              type: "number",
+              "aria-labelledby": "input-slider",
+            }}
+          />
+        &lt;/Item>
+        &lt;Item container xs={12} sm={8} md={6} lg={6} xl={6} justify="flex-end">
+          &lt;Slider
+            value={typeof value === "number" ? (value / maxAmount) * 100 : 0}
+            onChange={handleSliderChanged}
+            aria-labelledby="input-slider"
+          />
+        &lt;/Item>
+      &lt;/Item>
+      &lt;Item xs={3} sm={2}>
+        &lt;Button
+          variant="contained"
+          color="primary"
+          onClick={handleMaxRequested}
+        >
+          Max
+        &lt;/Button>
+      &lt;/Item>
+    &lt;/Container>
+  );
+}
+
+AmountSelectSlider.propTypes = {
+  /**
+   * The largest value that can be selected.
+   */
+  maxAmount: PropTypes.number,
+  /**
+   * The variable to access the selected value from.
+   * Often a state variable.
+   */
+  value: PropTypes.number.isRequired,
+  /**
+   * The function for setting the selected variable.
+   * Often a setState method.
+   */
+  setValue: PropTypes.func.isRequired,
+  /**
+   * The string representing the units of the amount.
+   */
+  sliderUnits: PropTypes.string,
+};
+
+AmountSelectSlider.defaultProps = {
+  maxAmount: 100,
+  sliderUnits: "",
+};
+
+export default AmountSelectSlider;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+</body>
+</html>

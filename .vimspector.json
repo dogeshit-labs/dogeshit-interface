@@ -1,0 +1,39 @@
+{
+	"configurations": {
+		"full-site": {
+			"adapter": "chrome",
+			"configuration": {
+				"request": "launch",
+				"url": "http://localhost:3000"
+			}
+		},
+		"jest": {
+			"adapter": "vscode-node",
+			"breakpoints": {
+				"exception": {
+					"all": "N",
+					"uncaught": "N"
+				}
+			},
+			"configuration": {
+				"request": "launch",
+				"name": "Debug CRA Tests",
+				"type": "node",
+				"runtimeArgs": [
+					"--inspect-brk",
+					"${workspaceRoot}/node_modules/jest/bin/jest",
+					"--runInBand",
+					"--no-coverage",
+					"-t",
+					"'${TestName}'",
+					"--",
+					"${file}"
+				],
+				"console": "integratedTerminal",
+        "skipFiles": ["<node_internals>/**/*.js"],
+        "internalConsoleOptions": "neverOpen",
+        "port": 9229
+			}
+		}
+	}
+}

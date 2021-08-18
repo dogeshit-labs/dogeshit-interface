@@ -1,0 +1,372 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> Hero.js</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+             
+                <a href="index.html">
+                    <h1 class="navbar-item">My React components</h1>
+                </a>
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Components</h3><ul><li><a href="AmountSelectSlider.html">AmountSelectSlider</a></li><li><a href="HelpPopover.html">HelpPopover</a></li><li><a href="Hero.html">Hero</a></li><li><a href="LogoIcon.html">LogoIcon</a></li><li><a href="SupportedDogeList.html">SupportedDogeList</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Bold">Bold</a></li><li><a href="global.html#Container">Container</a></li><li><a href="global.html#Italics">Italics</a></li><li><a href="global.html#Item">Item</a></li><li><a href="global.html#Wide">Wide</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>Hero.js</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { makeStyles } from "@material-ui/core/styles";
+import PropTypes from "prop-types";
+
+import { imageSizes } from "../imageSizes.js";
+import { breakpoints } from "../breakpoints.js";
+
+const getUseStyles = (imgName) =>
+  makeStyles((theme) => ({
+    heroImg: {
+      flexShrink: 0,
+      backgroundRepeat: "no-repeat",
+      backgroundSize: "contain",
+
+      width: "100%",
+      height: "0",
+      [theme.breakpoints.down("sm")]: {
+        backgroundImage: "url(./images/sm/" + imgName + ".png)",
+        paddingTop:
+          String(
+            (
+              (imageSizes.sm[imgName].height / imageSizes.sm[imgName].width) *
+              100
+            ).toFixed(3)
+          ) + "%",
+      },
+      [theme.breakpoints.between(
+        theme.breakpoints.width("sm") + 1,
+        theme.breakpoints.width("md") + 1
+      )]: {
+        backgroundImage: "url(./images/md/" + imgName + ".png)",
+        paddingTop:
+          String(
+            (
+              (imageSizes.md[imgName].height / imageSizes.md[imgName].width) *
+              100
+            ).toFixed(3)
+          ) + "%",
+      },
+      [theme.breakpoints.between(
+        theme.breakpoints.width("md") + 1,
+        theme.breakpoints.width("lg") + 1
+      )]: {
+        backgroundImage: "url(./images/lg/" + imgName + ".png)",
+        paddingTop:
+          String(
+            (
+              (imageSizes.lg[imgName].height / imageSizes.lg[imgName].width) *
+              100
+            ).toFixed(3)
+          ) + "%",
+      },
+      [theme.breakpoints.between(
+        theme.breakpoints.width("lg") + 1,
+        theme.breakpoints.width("xl") + 1
+      )]: {
+        backgroundImage: "url(./images/xl/" + imgName + ".png)",
+        paddingTop:
+          String(
+            (
+              (imageSizes.xl[imgName].height / imageSizes.xl[imgName].width) *
+              100
+            ).toFixed(3)
+          ) + "%",
+      },
+      [theme.breakpoints.between(
+        theme.breakpoints.width("xl") + 1,
+        breakpoints.xxl + 1
+      )]: {
+        backgroundImage: "url(./images/xxl/" + imgName + ".png)",
+        paddingTop:
+          String(
+            (
+              (imageSizes.xxl[imgName].height / imageSizes.xxl[imgName].width) *
+              100
+            ).toFixed(3)
+          ) + "%",
+      },
+      [theme.breakpoints.between(breakpoints.xxl + 1, breakpoints.xxxl + 1)]: {
+        backgroundImage: "url(./images/xxxl/" + imgName + ".png)",
+        paddingTop:
+          String(
+            (
+              (imageSizes.xxxl[imgName].height /
+                imageSizes.xxxl[imgName].width) *
+              100
+            ).toFixed(3)
+          ) + "%",
+      },
+      [theme.breakpoints.up(breakpoints.xxxl + 1)]: {
+        backgroundImage: "url(./images/xxxxl/" + imgName + ".png)",
+        paddingTop:
+          String(
+            (
+              (imageSizes.xxxxl[imgName].height /
+                imageSizes.xxxxl[imgName].width) *
+              100
+            ).toFixed(3)
+          ) + "%",
+      },
+    },
+    hero: {
+      [theme.breakpoints.down("sm")]: {
+        marginTop:
+          "-" +
+          String(
+            (
+              (imageSizes.sm[imgName].height / imageSizes.sm[imgName].width) *
+              100
+            ).toFixed(3)
+          ) +
+          "%",
+      },
+      [theme.breakpoints.between(
+        theme.breakpoints.width("sm") + 1,
+        theme.breakpoints.width("md") + 1
+      )]: {
+        marginTop:
+          "-" +
+          String(
+            (
+              (imageSizes.md[imgName].height / imageSizes.md[imgName].width) *
+              100
+            ).toFixed(3)
+          ) +
+          "%",
+      },
+      [theme.breakpoints.between(
+        theme.breakpoints.width("md") + 1,
+        theme.breakpoints.width("lg") + 1
+      )]: {
+        marginTop:
+          "-" +
+          String(
+            (
+              (imageSizes.lg[imgName].height / imageSizes.lg[imgName].width) *
+              100
+            ).toFixed(3)
+          ) +
+          "%",
+      },
+      [theme.breakpoints.between(
+        theme.breakpoints.width("lg") + 1,
+        theme.breakpoints.width("xl") + 1
+      )]: {
+        marginTop:
+          "-" +
+          String(
+            (
+              (imageSizes.xl[imgName].height / imageSizes.xl[imgName].width) *
+              100
+            ).toFixed(3)
+          ) +
+          "%",
+      },
+      [theme.breakpoints.between(
+        theme.breakpoints.width("xl") + 1,
+        breakpoints.xxl + 1
+      )]: {
+        marginTop:
+          "-" +
+          String(
+            (
+              (imageSizes.xxl[imgName].height / imageSizes.xxl[imgName].width) *
+              100
+            ).toFixed(3)
+          ) +
+          "%",
+      },
+      [theme.breakpoints.between(breakpoints.xxl + 1, breakpoints.xxxl + 1)]: {
+        marginTop:
+          "-" +
+          String(
+            (
+              (imageSizes.xxxl[imgName].height /
+                imageSizes.xxxl[imgName].width) *
+              100
+            ).toFixed(3)
+          ) +
+          "%",
+      },
+      [theme.breakpoints.up(breakpoints.xxxl + 1)]: {
+        marginTop:
+          "-" +
+          String(
+            (
+              (imageSizes.xxxxl[imgName].height /
+                imageSizes.xxxxl[imgName].width) *
+              100
+            ).toFixed(3)
+          ) +
+          "%",
+      },
+    },
+    heroContent: {
+      display: "flex",
+      //flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "flex-end",
+      marginTop: "64px",
+      marginLeft: 211,
+    },
+  }));
+
+const styleGenerators = {
+  "": () => ({ heroImg: {}, hero: {}, heroContent: {} }),
+  dogeshit: getUseStyles("dogeshit"),
+};
+/**
+ * A hero component. This will display the Hero image at the top of the page.
+ *
+ * The heroContent will be rendered overtop of the Hero image.
+ * The children will be rendered directly beneath the Hero image.
+ * @component
+ */
+function Hero(props) {
+  const img = props.imgName;
+
+  const classes = styleGenerators[img]();
+
+  if (typeof img === "undefined" || img === "") {
+    return &lt;div>{props.children}&lt;/div>;
+  }
+
+  return (
+    &lt;div className={classes.heroImg}>
+      &lt;div className={classes.hero}>
+        &lt;div className={classes.heroContent}>{props.heroContent}&lt;/div>
+      &lt;/div>
+    &lt;/div>
+  );
+}
+
+Hero.propTypes = {
+  /**
+   * The name of the image to use as the Hero, should be accessible under /public/images/{sm,md,lg,xl,xxl,xxxl,xxxxl}
+   */
+  imgName: PropTypes.string,
+  /*
+   * The elements to display on top of the hero.
+   */
+  heroContent: PropTypes.element,
+  /*
+   * The content to display below the hero.
+   */
+  children: PropTypes.element.isRequired,
+};
+
+Hero.defaultProps = {
+  imgName: "",
+};
+
+export default Hero;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+</body>
+</html>
