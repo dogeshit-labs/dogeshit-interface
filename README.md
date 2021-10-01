@@ -14,7 +14,6 @@ It currently provides support for the following wallets:
 - MetaMask (Browser extension)
 - One Wallet (Browser extension)
 - Math Wallet (Browser extension)
-- Wallet Connect (Mobile Wallets)
 
 The app provides two different styling toggles:
 
@@ -50,3 +49,20 @@ Utilizes `harmony-js` and `web3` for interacting with the blockchain.
 - `@harmony-js/transaction`
 - `@harmony-js/utils`
 - `web3`
+
+## TODO
+
+While the UI is currently functional, there are some things that need stabilization and optimization.
+
+[] Break up the `WalletConnector` effects properly.
+[] Ensure stability of Transaction status snackbar.
+[] Improve functionality of settings page (remove debug settings).
+[] Add landing page content.
+[] Add help/how-to page content.
+[] Optimize mobile layout.
+[] Add Wallet Connect support.
+[] Add headers/graphics to the staking/convert pages.
+[] Deploy to publicly facing server.
+[] Make sure removing/changing wallets is stable.
+[] Make sure failed transactions don't require a refresh.
+[] Automate the configuration of the provider and the `get-latest.sh` script.
