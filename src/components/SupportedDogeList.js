@@ -43,6 +43,7 @@ function SupportedDogeList(props) {
 
   const handleItemSelected = useCallback(
     (event, index) => {
+      console.log(contracts[index]);
       setSelected(contracts[index]);
     },
     [setSelected, contracts]
@@ -51,48 +52,49 @@ function SupportedDogeList(props) {
   return (
     <List>
       {contracts.map((contract, i) => (
-        <Tooltip
-          title={
+        /*<Tooltip
+        title={
             contract.balance <= 0
               ? contract.name + " unvailable due to insufficient balance."
               : "Select " + contract.name
           }
-        >
-          <span>
-            <ListItem
-              button
-              disabled={contract.balance <= 0}
-              selected={contract.name === selected}
-              onClick={(event) => handleItemSelected(event, i)}
-              key={contract.name}
-            >
-              <ListItemText
-                primary={contract.name + "  -  " + contract.symbol}
-                secondary={
-                  "Available Balance: " +
-                  String(contract.balance) +
-                  " " +
-                  contract.symbol
-                }
-              />
-              <ListItemSecondaryAction>
-                <Tooltip title="View on Block Explorer">
-                  <Link>
-                    <a
-                      rel="noreferrer noopener"
-                      target="_blank"
-                      href={blockExplorerUrl + contract.address}
-                    >
-                      <IconButton edge="end" aria-label="view-on-explorer">
-                        <PageviewIcon />
-                      </IconButton>
-                    </a>
-                  </Link>
-                </Tooltip>
-              </ListItemSecondaryAction>
-            </ListItem>
-          </span>
-        </Tooltip>
+        >*/
+        <span>
+          <ListItem
+            button
+            disabled={contract.balance <= 0}
+            selected={contract.name === selected}
+            onClick={(event) => handleItemSelected(event, i)}
+            key={i}
+          >
+            <ListItemText
+              primary={contract.name + "  -  " + contract.symbol}
+              key={i}
+              secondary={
+                "Available Balance: " +
+                String(contract.balance) +
+                " " +
+                contract.symbol
+              }
+            />
+            <ListItemSecondaryAction>
+              <Tooltip title="View on Block Explorer">
+                <Link>
+                  <a
+                    rel="noreferrer noopener"
+                    target="_blank"
+                    href={blockExplorerUrl + contract.address}
+                  >
+                    <IconButton edge="end" aria-label="view-on-explorer">
+                      <PageviewIcon />
+                    </IconButton>
+                  </a>
+                </Link>
+              </Tooltip>
+            </ListItemSecondaryAction>
+          </ListItem>
+        </span>
+        //</Tooltip>
       ))}
     </List>
   );

@@ -86,7 +86,7 @@ export default function Staking() {
     const weiAmount = await dogeshit.contract.methods["balanceOf"](
       accountState.account
     ).call();
-    const balance = accountState.web3.utils.fromWei(weiAmount);
+    const balance = accountState.web3.utils.fromWei(weiAmount, "gwei");
     if (balance !== dogeshit.balance) {
       setDSContract((prev) => ({ ...prev, balance: balance }));
     }
@@ -102,7 +102,7 @@ export default function Staking() {
     const weiAmount = await shitFountain.contract.methods["stake"](
       accountState.account
     ).call();
-    const staked = accountState.web3.utils.fromWei(weiAmount);
+    const staked = accountState.web3.utils.fromWei(weiAmount, "gwei");
     if (staked !== shitFountain.staked) {
       setSFContract((prev) => ({ ...prev, staked: staked }));
     }
@@ -118,7 +118,7 @@ export default function Staking() {
     const weiAmount = await shitFountain.contract.methods["unclaimed_reward"](
       accountState.account
     ).call();
-    const rewards = accountState.web3.utils.fromWei(weiAmount);
+    const rewards = accountState.web3.utils.fromWei(weiAmount, "gwei");
     if (rewards !== shitFountain.rewards) {
       setSFContract((prev) => ({ ...prev, rewards: rewards }));
     }
@@ -132,7 +132,7 @@ export default function Staking() {
 
   const updateTotalStake = useCallback(async () => {
     const weiAmount = await shitFountain.contract.methods.total_stake().call();
-    const totalStake = accountState.web3.utils.fromWei(weiAmount);
+    const totalStake = accountState.web3.utils.fromWei(weiAmount, "gwei");
     if (totalStake !== shitFountain.totalStake) {
       setSFContract((prev) => ({ ...prev, totalStake: totalStake }));
     }
@@ -147,7 +147,7 @@ export default function Staking() {
     const weiAmount = await shitFountain.contract.methods[
       "reward_per_block"
     ]().call();
-    const rewardPerBlock = accountState.web3.utils.fromWei(weiAmount);
+    const rewardPerBlock = accountState.web3.utils.fromWei(weiAmount, "gwei");
     if (rewardPerBlock !== shitFountain.rewardPerBlock) {
       setSFContract((prev) => ({ ...prev, rewardPerBlock: rewardPerBlock }));
     }

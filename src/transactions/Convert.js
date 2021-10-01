@@ -146,6 +146,7 @@ const shitContent = {
 const canProceed = (idx, txState) => {
   switch (idx) {
     case 0:
+      console.log(txState);
       return txState.toConvert !== "" && txState.available > 0;
     case 1:
       return txState.amount > 0 && txState.amount <= txState.available;
@@ -187,8 +188,8 @@ function txReducer(state, action) {
     case "setContract":
       return {
         ...state,
-        toConvert: action.name,
-        toConvertSymbol: action.symbol,
+        toConvert: action.toConvert,
+        toConvertSymbol: action.toConvertSymbol,
       };
     case "setAmount":
       return { ...state, amount: action.amount };
@@ -228,10 +229,10 @@ export default function ConvertStepper(props) {
   }, [txDispatch]);
 
   const approveTx = useCallback(async () => {
-    const weiAvailable = accountState.web3.utils.toWei(
-      String(txState.available)
-    );
-    var weiAmount = accountState.web3.utils.toWei(String(txState.amount));
+    const weiAvailable =
+      accountState.web3.utils.toWei(String(txState.available), "gwei") / 10;
+    var weiAmount =
+      accountState.web3.utils.toWei(String(txState.amount), "gwei") / 10;
     console.log(weiAvailable, weiAmount);
     if (weiAvailable < weiAmount) {
       weiAmount = weiAvailable;
@@ -281,16 +282,17 @@ export default function ConvertStepper(props) {
   ]);
 
   const sendTx = useCallback(async () => {
-    const weiAvailable = accountState.web3.utils.toWei(
-      String(txState.available)
-    );
-    var weiAmount = accountState.web3.utils.toWei(String(txState.amount));
+    const weiAvailable =
+      accountState.web3.utils.toWei(String(txState.available), "gwei") / 10;
+    var weiAmount =
+      accountState.web3.utils.toWei(String(txState.amount), "gwei") / 10;
     if (weiAvailable < weiAmount) {
       weiAmount = weiAvailable;
     }
     const dogeContract = dogeContracts.filter(
       (item) => item.name === txState.toConvert
     )[0].contract;
+    console.log(weiAmount);
     const txData = await convertContract.methods
       .make_shit(dogeContract.options.address, weiAmount)
       .encodeABI();
@@ -343,6 +345,8 @@ export default function ConvertStepper(props) {
 
   const handleContractSelected = useCallback(
     (contract) => {
+      console.log("In Convert TX");
+      console.log(contract);
       txDispatch({
         type: "setContract",
         toConvert: contract.name,

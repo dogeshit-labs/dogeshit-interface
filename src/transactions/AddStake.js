@@ -124,9 +124,13 @@ export default function AddStakeStepper(props) {
 
   const approveTx = useCallback(async () => {
     const weiAvailable = accountState.web3.utils.toWei(
-      String(txState.available)
+      String(txState.available),
+      "gwei"
     );
-    var weiAmount = accountState.web3.utils.toWei(String(txState.amount));
+    var weiAmount = accountState.web3.utils.toWei(
+      String(txState.amount),
+      "gwei"
+    );
     if (weiAvailable < weiAmount) {
       weiAmount = weiAvailable;
     }
@@ -167,9 +171,13 @@ export default function AddStakeStepper(props) {
 
   const sendTx = useCallback(async () => {
     const weiAvailable = accountState.web3.utils.toWei(
-      String(txState.available)
+      String(txState.available),
+      "gwei"
     );
-    var weiAmount = accountState.web3.utils.toWei(String(txState.amount));
+    var weiAmount = accountState.web3.utils.toWei(
+      String(txState.amount),
+      "gwei"
+    );
     if (weiAvailable < weiAmount) {
       weiAmount = weiAvailable;
     }

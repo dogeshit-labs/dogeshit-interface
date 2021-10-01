@@ -236,8 +236,14 @@ export const ShitFountainArtifact = {
   "1666700000": {
     "events": {},
     "links": {},
-    "address": "0x4C8A33aEA4666292f1B174c72CD1fFa730856e98",
-    "transactionHash": "0xde60657e46745eef6ab097bb84cdfdbceed169982d08783fcb3d0886d65637ba"
+    "address": "0x7186A54DdAb3dA9279a3A675CFBCc5893d664709",
+    "transactionHash": "0xd03699b0a5513a2afd10a4ff98daaad20a87b1da337a3237a31fa1d4e4d5a5cb"
+  },
+  "5777": {
+    "events": {},
+    "links": {},
+    "address": "0x5ECe46807e83E208A4BccBd8fa11ca529C920dd5",
+    "transactionHash": "0x22363a08dd8cefbe0a2ee8ae29a2f0bf4fef0e98df258d801e2c3d68e1a461be"
   }
 }
 };

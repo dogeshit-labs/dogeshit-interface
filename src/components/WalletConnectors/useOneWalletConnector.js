@@ -4,7 +4,7 @@ import { Harmony, HarmonyExtension } from "@harmony-js/core";
 import { Messenger, Provider } from "@harmony-js/network";
 import { ChainID, ChainType, numberToHex } from "@harmony-js/utils";
 
-import { HarmonyLocal } from "../../provider.js";
+import { HarmonyTestnet } from "../../provider.js";
 import { AccountContext } from "../../contexts/Account.js";
 
 export default function useOneWalletConnector(props) {
@@ -79,16 +79,16 @@ export default function useOneWalletConnector(props) {
     }
     oneWallet.current = window.onewallet;
     accountDispatch({ type: "setWalletProiverInstalled", installed: true });
-    web3.current = new Web3(HarmonyLocal);
+    web3.current = new Web3(HarmonyTestnet);
     accountDispatch({ type: "setWeb3Instance", web3: web3.current });
     hmyExt.current = new HarmonyExtension(window.onewallet);
-    hmyExt.current.provider = new Provider(HarmonyLocal).provider;
+    hmyExt.current.provider = new Provider(HarmonyTestnet).provider;
     hmyExt.current.messenger = new Messenger(
       hmyExt.current.provider,
       ChainType.Harmony,
       ChainID.HmyLocal
     );
-    hmy.current = new Harmony(HarmonyLocal, {
+    hmy.current = new Harmony(HarmonyTestnet, {
       chainType: ChainType.Harmony,
       chainId: ChainID.HmyLocal,
     });

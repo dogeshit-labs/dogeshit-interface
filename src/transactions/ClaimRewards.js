@@ -1,8 +1,8 @@
-import { useContext, useCallback, useState, useEffect } from 'react';
+import { useContext, useCallback, useState, useEffect } from "react";
 import Button from "@material-ui/core/Button";
 
-import { AccountContext } from '../contexts/Account.js';
-import { PendingTxContext } from '../contexts/PendingTxs.js';
+import { AccountContext } from "../contexts/Account.js";
+import { PendingTxContext } from "../contexts/PendingTxs.js";
 
 export default function ClaimRewardsButton(props) {
   const { stakingContract, rewards } = props;
@@ -14,12 +14,12 @@ export default function ClaimRewardsButton(props) {
   const sendTx = useCallback(async () => {
     const txData = await stakingContract.methods.withdraw_rewards().encodeABI();
     if (accountState.provider === "Offline") {
-      return
+      return;
     }
     const gas = await accountState.web3.eth.estimateGas({
       to: String(stakingContract.options.address),
       from: accountState.account,
-      data: String(txData)
+      data: String(txData),
     });
     const gasPrice = await accountState.web3.eth.getGasPrice();
     const txHash = await accountState.sendTx(
@@ -30,23 +30,23 @@ export default function ClaimRewardsButton(props) {
       String(gasPrice)
     );
     if (txHash !== false) {
-      pendingTxDispatch({ type: 'addPendingTx', txHash: txHash });
+      pendingTxDispatch({ type: "addPendingTx", txHash: txHash });
     }
   }, [accountState, stakingContract, pendingTxDispatch]);
 
   useEffect(() => {
     if (Number(rewards) !== 0) {
       if (!canClaim) {
-        console.log("set true", rewards)
+        console.log("set true", rewards);
         setClaim(true);
       }
     } else {
       if (canClaim) {
-        console.log("set false", rewards)
+        console.log("set false", rewards);
         setClaim(false);
       }
     }
-  }, [rewards, canClaim, setClaim])
+  }, [rewards, canClaim, setClaim]);
 
   return (
     <Button
@@ -57,5 +57,5 @@ export default function ClaimRewardsButton(props) {
     >
       Claim
     </Button>
-  )
+  );
 }

@@ -92,7 +92,7 @@ export default function Convert() {
         name: name,
         symbol: symbol,
         address: dogeAddresses[i],
-        balance: accountState.web3.utils.fromWei(balance),
+        balance: accountState.web3.utils.fromWei(balance, "gwei") * 10,
       });
     }
     setDogeContracts(contracts);
@@ -103,7 +103,7 @@ export default function Convert() {
       const weiAmount = await contract.methods["balanceOf"](
         accountState.account
       ).call();
-      const balance = accountState.web3.utils.fromWei(weiAmount);
+      const balance = accountState.web3.utils.fromWei(weiAmount, "gwei") * 10;
       const item = dogeContracts.filter((item) => item.name === name)[0];
       if (item.balance !== balance) {
         setDogeContracts([
@@ -126,7 +126,6 @@ export default function Convert() {
 
   useEffect(() => {
     if (accountState.web3 !== null && accountState.networkId !== null) {
-      console.log(ShitLordArtifact.networks);
       console.log(accountState.networkId);
       setContract(
         new accountState.web3.eth.Contract(
